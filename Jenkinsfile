@@ -2,22 +2,22 @@ pipeline {
 
     agent any
 
+    tools {
+        maven 'MVN_3_9_6' 
+    }
+
     stages {
 
         stage('Compile') {
             steps {
-                withMaven(maven: 'MVN_3_9_6') {
-                    sh 'mvn -f pom.xml clean compile'
-                }
+                sh 'mvn -f pom.xml clean compile'
             }
         }
 
 
         stage('Unit Test (Junit)') {
             steps {
-                withMaven(maven: 'MVN_3_9_6') {
-                    sh 'mvn -f pom.xml test'
-                }
+                sh 'mvn -f pom.xml test'
             }
 
             post {
@@ -29,9 +29,7 @@ pipeline {
 
         stage('Package (Artifact install)') {
             steps {
-                withMaven(maven: 'MVN_3_9_6') {
-                    sh 'mvn -f pom.xml install'
-                }
+                sh 'mvn -f pom.xml install'
             }
         }
 
